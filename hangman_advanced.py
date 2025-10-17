@@ -1,4 +1,6 @@
 import random
+import os
+
 HANGMANPICS = ['''
 
   +---+
@@ -58,58 +60,96 @@ HANGMANPICS = ['''
 =========''']
 
 # List of words to choose from
-secretWords = ["WATER", "GUITAR", "CAT", "SCHOOL", "MOTORCYCLE", "COMPUTER"]
+secretWords = ["WATER", "GUITAR", "CAT", "SCHOOL", "MOTORCYCLE", "COMPUTER", "CARAMEL", "COWS", "HUMOR", "CAMPBOARD"]
 numWords = len(secretWords)
 
-# Select a random word
-word = secretWords[random.randint(0, numWords - 1)]
+clear = lambda: os.system("cls")
 
-# Array for blanks
-blanks = []
+# Variable to check if the player wants to play again
+play = 'y'
 
-# List for already guessed letters
-guessedLetters = {0}
+while(play == 'y'):
 
-# Boolean to check if letter was already guessed
-alreadyGuessed = False
+  # Clear console
+  clear()
 
-# Boolean to check if letter is in word
-correctLetter = False
+  # Select a random word
+  word = secretWords[random.randint(0, numWords - 1)]
 
-# Create blanks to show the player and show them
-for i in range(len(word)):
-    blanks.append("_")
+  # Array for blanks
+  blanks = []
 
-# Number of errors
-errors = 0
+  # List for already guessed letters
+  guessedLetters = {0}
 
-print()
+  # Number of correctly guessed letter
+  correctGuess = 0
 
-while(errors < 6):
-    alreadyGuessed = False
-    correctLetter = False
+  # Bool to check if player won
+  win = False
 
-    print(HANGMANPICS[errors])
+  # Create blanks to show the player and prints them
+  for i in range(len(word)):
+      blanks.append("_")
 
-    print(word)
-    
-    for i in range(len(blanks)):
-      print(blanks[i], end=" ")
+  # Number of errors
+  errors = 0
 
-    letter = input("Enter a letter > ")
-    letter = letter.upper()
+  # Player has 5 tries to find the correct word
+  while(errors < 6 and not win):
+      alreadyGuessed = False        # Bool to check if letter has been guessed already
+      correctLetter = False         # Bool to check if letter is in word
 
-    for d in guessedLetters:
-        if(letter == d):
-            print("This letter has already been guessed!")
-            alreadyGuessed = True
+      # print the current hangman pic
+      print(HANGMANPICS[errors])
 
-    if not(alreadyGuessed):
-        guessedLetters.add(letter)
-        for c in range(len(word)):
-          if word[c] == letter:
-            blanks[c] = letter
-            correctLetter = True
+      # Used for debugging
+      # print(word)
+      
+      # Show the blanks and the letters that the player already found
+      for i in range(len(blanks)):
+        print(blanks[i], end=" ")
 
-        if not(correctLetter):
-          errors += 1
+      # Get letter from user
+      letter = input("Enter a letter > ")
+      letter = letter.upper()
+
+      # Only continue if the user type a single letter
+      if(len(letter) > 1 or not letter.isalpha()):
+        print()
+        print("Please type in only a single letter (a - z)!")
+
+      else:
+
+        # Check if letter has been guessed already
+        for d in guessedLetters:
+            if(letter == d):
+              print("This letter has already been guessed!")
+              alreadyGuessed = True
+
+        if not(alreadyGuessed):
+            guessedLetters.add(letter)
+            for c in range(len(word)):
+              if word[c] == letter:
+                blanks[c] = letter
+                correctGuess += 1
+                correctLetter = True
+
+            if not(correctLetter):
+              errors += 1
+
+        if(correctGuess == len(word)):
+          win = True
+
+
+  # Print winning screen
+  if(win):
+    print("Congratulations, you found the word!")
+
+  # Print last hangman pic and show the word to the player 
+  else:
+    print(HANGMANPICS[6])
+    print("You loose. The word would have been", word)
+
+  print("Do you want to play again?")
+  play = input("Type y for yes or any other character to quit > ")
