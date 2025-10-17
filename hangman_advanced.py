@@ -181,8 +181,6 @@ while(play == 'y'):
       check_button = Button(text="Check letter", command = main)
       check_button.pack()
 
-      root.mainloop()
-
       
 
 
