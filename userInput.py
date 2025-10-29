@@ -14,8 +14,7 @@ def checkInput(letter):
 
 def letterAlreadyGuessed(guessedLetters, letter):
     for d in guessedLetters:
-          if(letter == d):
-            print("This letter has already been guessed!") 
+        if(letter == d):
             return True
           
     else:

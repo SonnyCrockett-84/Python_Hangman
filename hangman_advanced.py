@@ -1,4 +1,5 @@
 import random
+import tkinter as tk
 import os
 from hangmanpics import HANGMANPICS
 from randomWords import randomWord
@@ -69,8 +70,11 @@ while(play == 'y'):
             if not(correctLetter):
               errors += 1
 
+        else:
+           print("This letter has already been guessed!") 
+
         if(correctGuess == len(word)):
-          win = True
+              win = True
 
   endScreen(win, word)
 
