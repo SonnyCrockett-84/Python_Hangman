@@ -23,9 +23,6 @@ while(play == 'y'):
   # List for already guessed letters
   guessedLetters = {0}
 
-  # Number of correctly guessed letter
-  correctGuess_var = IntVar(root, value=0)
-
   # Bool to check if player won
   win = False
 
@@ -34,27 +31,20 @@ while(play == 'y'):
       blanks.append("_")
 
   # Number of errors
-  errors_var = IntVar(root, value=0)
+  errors = 0
+
+  correctGuess = 0
 
   # Player has 5 tries to find the correct word
-  while(errors_var.get() < 6 and not win):
-      alreadyGuessed_var = BooleanVar(root, value=False)        # Bool to check if letter has been guessed already
-      correctLetter_var = BooleanVar(root, value=False)         # Bool to check if letter is in word
+  while(errors < 6 and not win):
+      alreadyGuessed = False       # Bool to check if letter has been guessed already
+      correctLetter = False        # Bool to check if letter is in word
 
       # print the current hangman pic
       print(HANGMANPICS[errors])
       
       # Show the blanks and the letters that the player already found
       printBlanks(blanks)
-
-      blanks_label = Label(root,
-                           text = blanks,
-                           anchor=CENTER,
-                           justify=CENTER)
-      
-      blanks_label.pack()
-
-      letter_var = StringVar()
 
       # Get letter from user
       letter = getLetter()
