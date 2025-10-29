@@ -39,6 +39,13 @@ def endScreen(win):
     print(hangmanpics.HANGMANPICS[6])
     print("You loose. The word would have been", word)
 
+
+# Print play again screen
+def playAgain():
+   print("Do you want to play again?")
+   choice = input("Type y for yes or any other character to quit > ")
+   return choice
+
 # List of words to choose from
 secretWords = ["WATER", "GUITAR", "CAT", "SCHOOL", "MOTORCYCLE", "COMPUTER", "CARAMEL", "COWS", "HUMOR", "CAMPBOARD"]
 numWords = len(secretWords)
@@ -103,9 +110,9 @@ while(play == 'y'):
 
         # Check if letter has been guessed already
         for d in guessedLetters:
-            if(letter == d):
-              print("This letter has already been guessed!")
-              alreadyGuessed = True
+          if(letter == d):
+            print("This letter has already been guessed!") 
+            alreadyGuessed = True
 
         if not(alreadyGuessed):
             guessedLetters.add(letter)
@@ -123,5 +130,4 @@ while(play == 'y'):
 
   endScreen(win)
 
-  print("Do you want to play again?")
-  play = input("Type y for yes or any other character to quit > ")
+  play = playAgain()
