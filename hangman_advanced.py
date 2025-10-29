@@ -1,7 +1,7 @@
 import random
 import os
 from hangmanpics import HANGMANPICS
-from randomWords import randomWord
+from randomWords import *
 from menus import *
 from userInput import *
 
@@ -17,8 +17,11 @@ while(play == 'y'):
   # Clear console
   clear()
 
-  # Select a random word
-  word = randomWord()
+  # Select a random word from my list
+  # word = randomWord()
+
+  # Select a random word from the dictionary
+  word = randomDictionaryWord()
 
   # Array for blanks
   blanks = []
