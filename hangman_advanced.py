@@ -3,20 +3,11 @@ import os
 from hangmanpics import HANGMANPICS
 from randomWords import randomWord
 from menus import *
-from userInput import getLetter, checkInput
-
-def checkInput(letter):
-   if(len(letter) > 1 or not letter.isalpha()):
-        print("Please type in only a single letter (a - z)!")
-        return False
-   
-   return True
+from userInput import *
 
 clear = lambda: os.system("cls")
 
 startScreen()
-                                                                     
-clear()
 
 # Variable to check if the player wants to play again
 play = 'y'
@@ -65,10 +56,7 @@ while(play == 'y'):
       if(checkInput(letter)):
 
         # Check if letter has been guessed already
-        for d in guessedLetters:
-          if(letter == d):
-            print("This letter has already been guessed!") 
-            alreadyGuessed = True
+        alreadyGuessed = letterAlreadyGuessed(guessedLetters, letter)
 
         if not(alreadyGuessed):
             guessedLetters.add(letter)
@@ -84,6 +72,6 @@ while(play == 'y'):
         if(correctGuess == len(word)):
           win = True
 
-  endScreen(win)
+  endScreen(win, word)
 
   play = playAgain()

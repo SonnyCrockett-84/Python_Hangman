@@ -28,7 +28,7 @@ def printBlanks(blanks):
    print("\n")
 
 # Print winning/loose screen
-def endScreen(win):
+def endScreen(win, word):
 
    # Print winning screen
   if(win):
