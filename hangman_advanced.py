@@ -1,54 +1,16 @@
 import random
 import os
-import hangmanpics
+from hangmanpics import HANGMANPICS
+from randomWords import randomWord
+from menus import *
+from userInput import getLetter, checkInput
 
-
-# Start screen
-def startScreen():
-   clear()
+def checkInput(letter):
+   if(len(letter) > 1 or not letter.isalpha()):
+        print("Please type in only a single letter (a - z)!")
+        return False
    
-   print("\n")
-   print(" ██░ ██  ▄▄▄       ███▄    █   ▄████  ███▄ ▄███▓ ▄▄▄       ███▄    █ ")
-   print("▓██░ ██▒▒████▄     ██ ▀█   █  ██▒ ▀█▒▓██▒▀█▀ ██▒▒████▄     ██ ▀█   █ ")
-   print("▒██▀▀██░▒██  ▀█▄  ▓██  ▀█ ██▒▒██░▄▄▄░▓██    ▓██░▒██  ▀█▄  ▓██  ▀█ ██▒")
-   print("░▓█ ░██ ░██▄▄▄▄██ ▓██▒  ▐▌██▒░▓█  ██▓▒██    ▒██ ░██▄▄▄▄██ ▓██▒  ▐▌██▒")
-   print("░▓█▒░██▓ ▓█   ▓██▒▒██░   ▓██░░▒▓███▀▒▒██▒   ░██▒ ▓█   ▓██▒▒██░   ▓██░")
-   print(" ▒ ░░▒░▒ ▒▒   ▓▒█░░ ▒░   ▒ ▒  ░▒   ▒ ░ ▒░   ░  ░ ▒▒   ▓▒█░░ ▒░   ▒ ▒ ")
-   print(" ▒ ░▒░ ░  ▒   ▒▒ ░░ ░░   ░ ▒░  ░   ░ ░  ░      ░  ▒   ▒▒ ░░ ░░   ░ ▒░")
-   print(" ░  ░░ ░  ░   ▒      ░   ░ ░ ░ ░   ░ ░      ░     ░   ▒      ░   ░ ░ ")
-   print(" ░  ░  ░      ░  ░         ░       ░        ░         ░  ░         ░ ")
-   print("\n")
-   input("Press any key to start > ")
-
-# Print blanks
-def printBlanks(blanks):
-   for i in range(len(blanks)):
-        print(blanks[i], end=" ")
-   
-   print("\n")
-
-# Print winning/loose screen
-def endScreen(win):
-
-   # Print winning screen
-  if(win):
-    print("Congratulations, you found the word!")
-
-  # Print last hangman pic and show the word to the player 
-  else:
-    print(hangmanpics.HANGMANPICS[6])
-    print("You loose. The word would have been", word)
-
-
-# Print play again screen
-def playAgain():
-   print("Do you want to play again?")
-   choice = input("Type y for yes or any other character to quit > ")
-   return choice
-
-# List of words to choose from
-secretWords = ["WATER", "GUITAR", "CAT", "SCHOOL", "MOTORCYCLE", "COMPUTER", "CARAMEL", "COWS", "HUMOR", "CAMPBOARD"]
-numWords = len(secretWords)
+   return True
 
 clear = lambda: os.system("cls")
 
@@ -65,7 +27,7 @@ while(play == 'y'):
   clear()
 
   # Select a random word
-  word = secretWords[random.randint(0, numWords - 1)]
+  word = randomWord()
 
   # Array for blanks
   blanks = []
@@ -79,7 +41,7 @@ while(play == 'y'):
   # Bool to check if player won
   win = False
 
-  # Create blanks to show the player and prints them
+  # Create blanks for the secret word
   for i in range(len(word)):
       blanks.append("_")
 
@@ -92,21 +54,15 @@ while(play == 'y'):
       correctLetter = False         # Bool to check if letter is in word
 
       # print the current hangman pic
-      print(hangmanpics.HANGMANPICS[errors])
+      print(HANGMANPICS[errors])
       
       # Show the blanks and the letters that the player already found
       printBlanks(blanks)
 
       # Get letter from user
-      letter = input("Enter a letter > ")
-      letter = letter.upper()
+      letter = getLetter()
 
-      # Only continue if the user type a single letter
-      if(len(letter) > 1 or not letter.isalpha()):
-        print()
-        print("Please type in only a single letter (a - z)!")
-
-      else:
+      if(checkInput(letter)):
 
         # Check if letter has been guessed already
         for d in guessedLetters:
