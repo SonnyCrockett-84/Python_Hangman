@@ -1,83 +1,51 @@
 import random
 import os
+import hangmanpics
 
-HANGMANPICS = ['''
 
-  +---+
-  |   |
-      |
-      |
-      |
-      |
-=========''', '''
+# Start screen
+def startScreen():
+   clear()
+   
+   print("\n")
+   print(" ██░ ██  ▄▄▄       ███▄    █   ▄████  ███▄ ▄███▓ ▄▄▄       ███▄    █ ")
+   print("▓██░ ██▒▒████▄     ██ ▀█   █  ██▒ ▀█▒▓██▒▀█▀ ██▒▒████▄     ██ ▀█   █ ")
+   print("▒██▀▀██░▒██  ▀█▄  ▓██  ▀█ ██▒▒██░▄▄▄░▓██    ▓██░▒██  ▀█▄  ▓██  ▀█ ██▒")
+   print("░▓█ ░██ ░██▄▄▄▄██ ▓██▒  ▐▌██▒░▓█  ██▓▒██    ▒██ ░██▄▄▄▄██ ▓██▒  ▐▌██▒")
+   print("░▓█▒░██▓ ▓█   ▓██▒▒██░   ▓██░░▒▓███▀▒▒██▒   ░██▒ ▓█   ▓██▒▒██░   ▓██░")
+   print(" ▒ ░░▒░▒ ▒▒   ▓▒█░░ ▒░   ▒ ▒  ░▒   ▒ ░ ▒░   ░  ░ ▒▒   ▓▒█░░ ▒░   ▒ ▒ ")
+   print(" ▒ ░▒░ ░  ▒   ▒▒ ░░ ░░   ░ ▒░  ░   ░ ░  ░      ░  ▒   ▒▒ ░░ ░░   ░ ▒░")
+   print(" ░  ░░ ░  ░   ▒      ░   ░ ░ ░ ░   ░ ░      ░     ░   ▒      ░   ░ ░ ")
+   print(" ░  ░  ░      ░  ░         ░       ░        ░         ░  ░         ░ ")
+   print("\n")
+   input("Press any key to start > ")
 
-  +---+
-  |   |
-  O   |
-      |
-      |
-      |
-=========''', '''
+# Print blanks
+def printBlanks(blanks):
+   for i in range(len(blanks)):
+        print(blanks[i], end=" ")
+   
+   print("\n")
 
-  +---+
-  |   |
-  O   |
-  |   |
-      |
-      |
-=========''', '''
+# Print winning/loose screen
+def endScreen(win):
 
-  +---+
-  |   |
-  O   |
- /|   |
-      |
-      |
-=========''', '''
+   # Print winning screen
+  if(win):
+    print("Congratulations, you found the word!")
 
-  +---+
-  |   |
-  O   |
- /|\  |
-      |
-      |
-=========''', '''
-
-  +---+
-  |   |
-  O   |
- /|\  |
- /    |
-      |
-=========''', '''
-
-  +---+
-  |   |
-  O   |
- /|\  |
- / \  |
-      |
-=========''']
+  # Print last hangman pic and show the word to the player 
+  else:
+    print(hangmanpics.HANGMANPICS[6])
+    print("You loose. The word would have been", word)
 
 # List of words to choose from
 secretWords = ["WATER", "GUITAR", "CAT", "SCHOOL", "MOTORCYCLE", "COMPUTER", "CARAMEL", "COWS", "HUMOR", "CAMPBOARD"]
 numWords = len(secretWords)
 
 clear = lambda: os.system("cls")
-clear()
 
-print("\n")
-print(" ██░ ██  ▄▄▄       ███▄    █   ▄████  ███▄ ▄███▓ ▄▄▄       ███▄    █ ")
-print("▓██░ ██▒▒████▄     ██ ▀█   █  ██▒ ▀█▒▓██▒▀█▀ ██▒▒████▄     ██ ▀█   █ ")
-print("▒██▀▀██░▒██  ▀█▄  ▓██  ▀█ ██▒▒██░▄▄▄░▓██    ▓██░▒██  ▀█▄  ▓██  ▀█ ██▒")
-print("░▓█ ░██ ░██▄▄▄▄██ ▓██▒  ▐▌██▒░▓█  ██▓▒██    ▒██ ░██▄▄▄▄██ ▓██▒  ▐▌██▒")
-print("░▓█▒░██▓ ▓█   ▓██▒▒██░   ▓██░░▒▓███▀▒▒██▒   ░██▒ ▓█   ▓██▒▒██░   ▓██░")
-print(" ▒ ░░▒░▒ ▒▒   ▓▒█░░ ▒░   ▒ ▒  ░▒   ▒ ░ ▒░   ░  ░ ▒▒   ▓▒█░░ ▒░   ▒ ▒ ")
-print(" ▒ ░▒░ ░  ▒   ▒▒ ░░ ░░   ░ ▒░  ░   ░ ░  ░      ░  ▒   ▒▒ ░░ ░░   ░ ▒░")
-print(" ░  ░░ ░  ░   ▒      ░   ░ ░ ░ ░   ░ ░      ░     ░   ▒      ░   ░ ░ ")
-print(" ░  ░  ░      ░  ░         ░       ░        ░         ░  ░         ░ ")
-print("\n")
-input("Press any key to start > ")
+startScreen()
                                                                      
 clear()
 
@@ -117,16 +85,10 @@ while(play == 'y'):
       correctLetter = False         # Bool to check if letter is in word
 
       # print the current hangman pic
-      print(HANGMANPICS[errors])
-
-      # Used for debugging
-      # print(word)
+      print(hangmanpics.HANGMANPICS[errors])
       
       # Show the blanks and the letters that the player already found
-      for i in range(len(blanks)):
-        print(blanks[i], end=" ")
-
-      print("\n")
+      printBlanks(blanks)
 
       # Get letter from user
       letter = input("Enter a letter > ")
@@ -159,15 +121,7 @@ while(play == 'y'):
         if(correctGuess == len(word)):
           win = True
 
-
-  # Print winning screen
-  if(win):
-    print("Congratulations, you found the word!")
-
-  # Print last hangman pic and show the word to the player 
-  else:
-    print(HANGMANPICS[6])
-    print("You loose. The word would have been", word)
+  endScreen(win)
 
   print("Do you want to play again?")
   play = input("Type y for yes or any other character to quit > ")
