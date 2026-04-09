@@ -1,4 +1,5 @@
 import random
+import tkinter as tk
 import os
 from hangmanpics import HANGMANPICS
 from randomWords import *
@@ -13,11 +14,15 @@ startScreen()
 play = 'y'
 
 while(play == 'y'):
+<<<<<<< HEAD
 
   # Clear console
   clear()
 
   # Select a random word from my list
+=======
+  # Select a random word
+>>>>>>> gui
   word = randomWord()
 
   # Select a random word from the english dictionary
@@ -29,9 +34,13 @@ while(play == 'y'):
   # List for already guessed letters
   guessedLetters = {0}
 
+<<<<<<< HEAD
   # Number of correctly guessed letter
   correctGuess = 0
 
+=======
+  # Bool to check if player won
+>>>>>>> gui
   win = False
 
   # Create blanks for the secret word
@@ -40,10 +49,17 @@ while(play == 'y'):
 
   errors = 0
 
+  correctGuess = 0
+
   # Player has 5 tries to find the correct word
   while(errors < 6 and not win):
+<<<<<<< HEAD
       alreadyGuessed = False
       correctLetter = False
+=======
+      alreadyGuessed = False       # Bool to check if letter has been guessed already
+      correctLetter = False        # Bool to check if letter is in word
+>>>>>>> gui
 
       print(HANGMANPICS[errors])
       
@@ -67,8 +83,11 @@ while(play == 'y'):
             if not(correctLetter):
               errors += 1
 
+        else:
+           print("This letter has already been guessed!") 
+
         if(correctGuess == len(word)):
-          win = True
+              win = True
 
   endScreen(win, word)
 
