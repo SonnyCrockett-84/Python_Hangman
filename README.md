@@ -2,8 +2,6 @@
 
 A classic Hangman game implemented in Python, offering both a terminal-based (CLI) experience and a graphical user interface (GUI) using Tkinter.
 
-![Hangman Project](Hangman%20Projekt.png)
-
 ## Features
 
 - **Dual Modes:** Choose between a classic command-line experience or a modern graphical interface.
@@ -11,6 +9,8 @@ A classic Hangman game implemented in Python, offering both a terminal-based (CL
 - **Visual Feedback:** Animated ASCII art in the console and visual progress in the GUI.
 - **Input Validation:** Detects duplicate guesses and invalid characters to ensure smooth gameplay.
 - **Replayability:** Easy "play again" options to start a new round immediately.
+
+![Hangman Project](img/Hangman%20Projekt.png)
 
 ## Project Structure
 
